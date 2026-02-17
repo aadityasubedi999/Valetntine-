@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💘VALENTINE💘</title>
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      font-family: "Comic Sans MS", "Chalkboard SE", cursive, sans-serif;
+      background: linear-gradient(135deg, #6c5fff 0%, #0b0c4c 50%, #1229ad 100%);
+      overflow: hidden;
+    }
+
+    /* Floating hearts background */
+    .heart {
+      position: fixed;
+      font-size: 30px;
+      opacity: 0.25;
+      z-index: -1;
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(120vh) rotate(0deg); }
+      100% { transform: translateY(-30vh) rotate(360deg); }
+    }
+
+    /* Main container */
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      width: 100%;
+      max-width: 650px;
+      border-radius: 28px;
+      padding: 40px 28px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+      border: 5px dashed #ff2e75;
+      position: relative;
+      animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.3) rotate(-8deg); }
+      50% { transform: scale(1.08) rotate(3deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    /* Cute ribbon */
+    .ribbon {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff2e75;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 14px;
+      font-weight: bold;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: 46px;
+      color: #222;
+      text-shadow: 3px 3px 0 #ff2e75;
+      margin-bottom: 10px;
+    }
+
+    .big-emoji {
+      font-size: 64px;
+      margin: 10px 0;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .question {
+      font-size: 30px;
+      margin: 26px 0 10px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff2e75, #ff7bb1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding: 10px;
+    }
+
+    .sub {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    /* Love meter */
+    .love-meter {
+      width: 85%;
+      height: 30px;
+      margin: 25px auto;
+      border-radius: 18px;
+      background: #ffe6f0;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.15);
+    }
+
+    .love-fill {
+      height: 100%;
+      width: 35%;
+      border-radius: 18px;
+      background: linear-gradient(90deg, #ff2e75, #ff9bc7);
+      transition: width 0.7s ease;
+      position: relative;
+    }
+
+    .love-fill::after {
+      content: "💖 LOVE LEVEL";
+      position: absolute;
+      right: -95px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ff2e75;
+      color: white;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      white-space: nowrap;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+
+    /* Buttons */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+      position: relative;
+      min-height: 70px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 22px;
+      padding: 18px 38px;
+      border-radius: 60px;
+      min-width: 170px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.2);
+      transition: 0.25s;
+    }
+
+    #yesBtn {
+      background: linear-gradient(45deg, #2ecc71, #a3ffbf);
+      color: #123;
+    }
+
+    #yesBtn:hover { transform: scale(1.07); }
+    #yesBtn:active { transform: scale(0.95); }
+
+    #noBtn {
+      background: white;
+      color: #ff2e75;
+      border: 4px solid #ff2e75;
+      font-size: 20px;
+      position: relative;
+    }
+
+    #noBtn:hover { transform: scale(1.05); }
+    #noBtn:active { transform: scale(0.95); }
+
+    /* Quote */
+    .quote {
+      margin-top: 25px;
+      background: #fff3f8;
+      border-radius: 18px;
+      padding: 18px;
+      border-left: 6px solid #ff2e75;
+      color: #555;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* Success Page */
+    .success-page {
+      display: none;
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+      0% { opacity: 0; transform: translateY(60px) rotate(-4deg); }
+      100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+    }
+
+    .success-title {
+      font-size: 42px;
+      color: #2ecc71;
+      text-shadow: 3px 3px 0 #ffd700;
+      margin-bottom: 10px;
+    }
+
+    .success-message {
+      font-size: 26px;
+      color: #222;
+      margin: 18px 0;
+      line-height: 1.5;
+    }
+
+    .gif-box {
+      margin: 25px auto;
+      width: 320px;
+      max-width: 90%;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      border: 5px solid #ff2e75;
+    }
+
+    .gif-box img {
+      width: 100%;
+      display: block;
+    }
+
+    .love-facts {
+      background: #fff9c4;
+      padding: 18px;
+      border-radius: 18px;
+      margin: 20px 0;
+      border: 3px dotted #ffd700;
+    }
+
+    .love-facts h3 {
+      color: #ff2e75;
+      margin-bottom: 10px;
+    }
+
+    /* Funny GIF that appears when NO tries */
+    #gagGif {
+      position: fixed;
+      width: 200px;
+      display: none;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      z-index: 2000;
+      animation: wiggle 0.5s ease infinite;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      h1 { font-size: 34px; }
+      .question { font-size: 22px; }
+      button { font-size: 18px; padding: 16px 26px; min-width: 140px; }
+      .love-fill::after { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating hearts -->
+  <div class="heart" style="left:5%; animation-duration: 9s;">💗</div>
+  <div class="heart" style="left:18%; animation-duration: 12s;">💖</div>
+  <div class="heart" style="left:35%; animation-duration: 10s;">💘</div>
+  <div class="heart" style="left:55%; animation-duration: 14s;">💕</div>
+  <div class="heart" style="left:70%; animation-duration: 11s;">💝</div>
+  <div class="heart" style="left:85%; animation-duration: 13s;">💞</div>
+
+  <!-- MAIN PAGE -->
+  <div class="container" id="mainPage">
+    <div class="ribbon">💘 VALENTINE CHECKER 💘</div>
+
+    <h1>VALENTINE?</h1>
+    <div class="big-emoji">😽💋😽</div>
+
+    <div class="question">
+      Will you be my Valentine? 🥺💖
+    </div>
+
+    <div class="sub">
+      (Warning: If you press NO, the button will run away 😭)
+    </div>
+
+    <div class="love-meter">
+      <div class="love-fill" id="loveFill"></div>
+    </div>
+
+    <div class="buttons">
+      <button id="yesBtn">YES 💘</button>
+      <button id="noBtn">NO 💔</button>
+    </div>
+
+    <div class="quote">
+      "If you say yes, you get unlimited hugs, kisses and snacks 😤🍫💕"
+    </div>
+  </div>
+
+  <!-- SUCCESS PAGE -->
+  <div class="container success-page" id="successPage">
+    <h1 class="success-title">🎉 YAAAY 🎉</h1>
+
+    <div class="success-message">
+      YESSS!! 😭💖<br>
+      You're officially my Valentine 😽💋💘
+    </div>
+
+    <!-- Cat kissing gif -->
+    <div class="gif-box">
+      <img
+        src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+        alt="Cat kissing gif"
+      />
+    </div>
+
+    <div class="love-facts">
+      <h3>💞 Valentine Contract 💞</h3>
+      <p>
+        ✔ 100% loyalty <br>
+        ✔ Daily kisses 😽 <br>
+        ✔ Unlimited memes 🤝 <br>
+        ✔ Free chocolates 🍫
+      </p>
+    </div>
+
+    <div class="quote">
+      "Now you can’t escape 😈💘"
+    </div>
+
+    <button
+      id="againBtn"
+      style="margin-top: 20px; background: #ff2e75; color: white; font-size: 20px;"
+    >
+      🔁 DO IT AGAIN
+    </button>
+  </div>
+
+  <!-- Funny NO GIF -->
+  <img id="gagGif" src="" alt="funny gif" />
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const mainPage = document.getElementById("mainPage");
+    const successPage = document.getElementById("successPage");
+    const gagGif = document.getElementById("gagGif");
+    const loveFill = document.getElementById("loveFill");
+    const againBtn = document.getElementById("againBtn");
+
+    let clickCount = 0;
+    let noBtnMoved = false;
+
+    // NO button phrases
+    const noPhrases = [
+      "NO 💔",
+      "ARE YOU SURE? 😭",
+      "DON'T DO THIS 😿",
+      "PLS BABE 🥺",
+      "I WILL CRY 😭",
+      "OK LAST CHANCE 😤",
+      "YOU CAN'T PRESS ME 😈",
+      "JUST SAY YES 💘"
+    ];
+
+    // Funny gifs when NO is attempted
+    const gagGifs = [
+      "https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif", // crying
+      "https://media.giphy.com/media/OPU6wzx8JrHna/giphy.gif",      // sad cat
+      "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif",      // cat stare
+      "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif" // dramatic
+    ];
+
+    // Start love meter animation
+    setTimeout(() => {
+      loveFill.style.width = "45%";
+    }, 600);
+
+    // YES click
+    yesBtn.onclick = () => {
+      // fill love meter to max
+      loveFill.style.width = "100%";
+
+      // confetti hearts
+      for (let i = 0; i < 25; i++) {
+        setTimeout(() => {
+          const h = document.createElement("div");
+          h.innerHTML = "💖";
+          h.style.position = "fixed";
+          h.style.left = Math.random() * 100 + "vw";
+          h.style.top = "-40px";
+          h.style.fontSize = "40px";
+          h.style.zIndex = "9999";
+          document.body.appendChild(h);
+
+          h.animate(
+            [
+              { transform: "translateY(0) rotate(0deg)", opacity: 1 },
+              { transform: `translateY(${window.innerHeight + 100}px) rotate(360deg)`, opacity: 0 }
+            ],
+            { duration: 2500, easing: "ease-out" }
+          );
+
+          setTimeout(() => h.remove(), 2500);
+        }, i * 80);
+      }
+
+      // switch page
+      setTimeout(() => {
+        mainPage.style.display = "none";
+        successPage.style.display = "block";
+      }, 700);
+    };
+
+    // AGAIN button
+    againBtn.onclick = () => {
+      location.reload();
+    };
+
+    // NO button move logic
+    function moveNoButton() {
+      clickCount++;
+
+      if (!noBtnMoved) {
+        noBtn.style.position = "fixed";
+        noBtn.style.zIndex = "9999";
+        noBtnMoved = true;
+      }
+
+      const maxX = window.innerWidth - noBtn.offsetWidth - 30;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 30;
+
+      const x = Math.max(15, Math.random() * maxX);
+      const y = Math.max(15, Math.random() * maxY);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      // Change text
+      noBtn.innerHTML = noPhrases[clickCount % noPhrases.length];
+
+      // Shrink a bit each time
+      const scale = Math.max(0.55, 1 - clickCount * 0.08);
+      noBtn.style.transform = `scale(${scale})`;
+
+      // Increase love meter (because you're forcing love 😭)
+      const love = Math.min(100, 45 + clickCount * 7);
+      loveFill.style.width = love + "%";
+
+      // If too many tries, make NO button yellow + dashed
+      if (clickCount > 5) {
+        noBtn.style.background = "#fff9c4";
+        noBtn.style.border = "4px dashed #ff2e75";
+        noBtn.style.color = "#222";
+      }
+    }
+
+    // show funny gif near button
+    function showGagGif() {
+      const rect = noBtn.getBoundingClientRect();
+      gagGif.src = gagGifs[clickCount % gagGifs.length];
+
+      gagGif.style.left = rect.left - 120 + "px";
+      gagGif.style.top = rect.top - 220 + "px";
+      gagGif.style.display = "block";
+
+      setTimeout(() => {
+        gagGif.style.display = "none";
+      }, 1500);
+    }
+
+    // NO hover + click
+    noBtn.onmouseenter = () => {
+      moveNoButton();
+      showGagGif();
+    };
+
+    noBtn.onclick = (e) => {
+      e.preventDefault();
+      moveNoButton();
+      showGagGif();
+    };
+
+    // Mobile touch
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
+      showGagGif();
+    });
+  </script>
+
+</body>
+</html>
